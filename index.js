@@ -1,6 +1,13 @@
 'use strict'
 
-var _ = require('lodash')
+var find = require('lodash.find') 
+var isString = require('lodash.isstring') 
+var isArray = require('lodash.isarray') 
+var map = require('lodash.map') 
+var isObject = require('lodash.isobject') 
+var forOwn = require('lodash.forown') 
+var cloneDeep = require('lodash.clonedeep')
+
 var omittingKeys = [ /firstName/gi, /lastName/gi, /phone/gi]
 var error = 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
 var cntLimit = 20
@@ -9,7 +16,7 @@ var watchKeys
 
 function clean () {
   function firstRegexMatch(el){
-    return !!_.find(watchKeys, function (v) {
+    return !!find(watchKeys, function (v) {
       return el.match(v)
     })
   }
@@ -17,17 +24,17 @@ function clean () {
   function internalSwap(el,cnt){
     cnt++
     if(cnt >= MAX) return ''
-    if(_.isString(el)){
+    if(isString(el)){
       if(firstRegexMatch(el)){
         el = error
       }
-    } else if(_.isArray(el)){
-      el = _.map(el,function(el){
+    } else if(isArray(el)){
+      el = map(el,function(el){
         return internalSwap(el,cnt)
       });
-    } else if(_.isObject(el)){
+    } else if(isObject(el)){
       var cache = {}
-      _.forOwn(el, function(v,k){
+      forOwn(el, function(v,k){
         if(!firstRegexMatch(k)){
           cache[k] = internalSwap(v,cnt)
         }
@@ -37,9 +44,9 @@ function clean () {
     return el
   }
 
-  var args = _.cloneDeep(arguments);
+  var args = cloneDeep(arguments);
   var cleaned = {}
-  _.forOwn(arguments,function(v,k){
+  forOwn(arguments,function(v,k){
     cleaned[k] = internalSwap(v,0)
   })
   return cleaned
