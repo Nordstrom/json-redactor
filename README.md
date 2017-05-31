@@ -1,18 +1,18 @@
-# Log Filter
+# JSON Redactor
 
 Recursively clean a list of arguments before sending them out somewhere.
 
-This is a standard npm module, so you install it via
+This is a (soon to be) standard npm module, so you'll install it via
 
-`npm install --save log-filter`
+`npm install --save json-redactor`
 
 ## `require` it like:
 
 ```js
-var logFilter = require('logFilter')([List of values to filter out],maxRecursion)
+var jsonRedactor = require('json-redactor')([List of regex to filter out],maxRecursion)
 
 // Defaults:
-//  List of values to filter out: ['firstName', 'lastName', 'phone']
+//  List of regex to filter out: [ /firstName/gi, /lastName/gi, /phone/gi ]
 //  maxRecursion: 20
 ```
 
@@ -28,20 +28,19 @@ var logFilter = require('logFilter')([List of values to filter out],maxRecursion
   var b = bole(name)
   var pre = {
     error = function(){
-      b.error.apply(null,_.values(logFilter(watchKeys).clean.apply(null,arguments)))
+      b.error.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
     },
     info = function(){
-      b.info.apply(null,_.values(logFilter(watchKeys).clean.apply(null,arguments)))
+      b.info.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
     },
     warn = function(){
-      b.warn.apply(null,_.values(logFilter(watchKeys).clean.apply(null,arguments)))
+      b.warn.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
     },
     debug = function(){
-      b.debug.apply(null,_.values(logFilter(watchKeys).clean.apply(null,arguments)))
+      b.debug.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
     }
 ```
 
 ### standard usage
 
-`logFilter.clean()`
-
+`jsonRedactor.clean()`
