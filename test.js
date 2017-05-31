@@ -64,7 +64,7 @@ describe('remove PII', function() {
     })
   })
 
-  describe('errors out', function (){
+  describe('swaps out strings', function (){
     var watchKeys
     beforeEach(function(){
       watchKeys = WATCH_KEYS
@@ -89,6 +89,14 @@ describe('remove PII', function() {
     it('in an array inside of an object',function(){
       var t = {test:'test',error:[[triggers]]}
       assertion(t,{test:'test',error:[[[ERROR_MESSAGE,ERROR_MESSAGE,ERROR_MESSAGE,ERROR_MESSAGE,ERROR_MESSAGE]]]})
+    })
+  })
+
+  describe('swaps out strings and removes each key value', function(){
+    it('if they both match some malicious string', function(){
+      var t = {test:triggers[0]}
+      t[triggers[1]] = 'test2'
+      assertion(t,{test:ERROR_MESSAGE})
     })
   })
 });
