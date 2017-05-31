@@ -3,13 +3,13 @@
 var WATCH_KEYS = [ /firstName/gi , /lastName/gi , /phone/gi ]
 var triggers = ['firstName','lastName','phone','phoneNumber','standardfirstname']
 var ERROR_MESSAGE = 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
-var logFilter = require('./index.js')(WATCH_KEYS)
+var jsonRedactor = require('./index.js')(WATCH_KEYS)
 var assert = require('assert');
 
 describe('remove PII', function() {
 
   function assertion(obj,exp){
-    var a = logFilter.clean(obj)[0]
+    var a = jsonRedactor.clean(obj)[0]
     assert.equal(JSON.stringify(a),JSON.stringify(exp))
   }
 

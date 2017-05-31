@@ -50,10 +50,10 @@ var pre = {
 
 ```js
 jsonRedactor([/error/gi]).clean('this is a error')
-// returns 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
-// this is because our regex matches `error` in the clean function, and the argument was a string, so it gets redacted
+// returns {'0':'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'}
+The outer object is because we copy and return the arguments object, this way we can parse through an arbitrary amount of args. The inner string got redacted our regex matches `error` in the clean function, and the argument was a string
 
 jsonRedactor([/string/gi]).clean({string:'test',test2:'string'})
-// returns {test2:'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'}
-// this is because our regex matches the key string, which gets removed, and the string `string` gets redacted
+// returns {'0':{test2:'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'}}
+In the inner object, key `string` matches the regex so it gets stripped out
 ```
