@@ -67,14 +67,14 @@ return pre
 var jsonRedactor = require('jsonRedactor')({
     watchKeys:[/error/gi]
   })
-console.log(jsonRedactor('this is a error'))
+console.log(jsonRedactor('this is an error'))
 // logs {'0':'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'}
 ```
-The outer object is because we copy and return the arguments object, this way we can parse through an arbitrary amount of args. The inner string got redacted our regex matches `error` in the clean function, and the argument was a string
+The outer object is because we copy and return the arguments object, this way we can parse through an arbitrary amount of args. The inner string got redacted because our regex matches `error` in the clean function, and the argument was a string
 
 ```js
 var jsonRedactor = require('jsonRedactor')({
-    watchKeys:[/string/gi]
+    watchKeys:[/string/gi],
     error: 'redacted!'
   })
 console.log(jsonRedactor({string:'test',test2:'string'}))
