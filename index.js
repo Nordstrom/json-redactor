@@ -20,9 +20,7 @@ module.exports = function (opts) {
 
   return function clean () {
     function firstRegexMatch (el) {
-      return !!find(WATCH, function (v) {
-        return el.match(v)
-      })
+      return !!find(WATCH,el.match)
     }
 
     function internalSwap (el, cnt) {

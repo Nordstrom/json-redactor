@@ -1,6 +1,6 @@
 {
   "name": "json-redactor",
-  "version": "1.0.0",
+  "version": "0.5.0",
   "description": "removes key value pairs from json objects, or redacts strings, if they contain regex keywords",
   "main": "index.js",
   "dependencies": {
@@ -29,7 +29,7 @@
     "redact",
     "clean"
   ],
-  "author": "Admas Molla",
+  "author": "Admas Molla <admas@mollases.com>",
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/Nordstrom/json-redactor/issues"
