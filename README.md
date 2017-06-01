@@ -80,5 +80,4 @@ var jsonRedactor = require('jsonRedactor')({
 console.log(jsonRedactor({string:'test',test2:'string'}))
 // logs {'0':{test2:'redacted!'}}
 ```
-In the inner object, key `string` matches the regex so it gets stripped out
-key `test2` gets replaced with `redacted!` because that is what our error message is set to
+In the inner object, key `string` matches the regex so it gets stripped out. The value of key `test2` gets replaced with `redacted!` because that is what our error message is set to (and the value matches the regex)
