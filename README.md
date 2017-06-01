@@ -33,7 +33,7 @@ This is done so that recursive structures dont error out with a stack overflow.
 ```js
 var bole = require('bole');
 var jsonRedactor = require('./logFilter.js')({
-    watchKeys : [ /firstName/gi , /lastName/gi , /phone/gi ]
+    watchKeys : [ /firstName/gi , /lastName/gi , /phone/gi ],
     error: 'Dont Log sensitive data',
     max: 5
   });
