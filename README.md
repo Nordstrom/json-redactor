@@ -9,12 +9,18 @@ This is a (soon to be) standard npm module, so you'll install it via
 ## `require` it like:
 
 ```js
-var jsonRedactor = require('json-redactor')([List of regex to filter out],maxRecursion)
-
-// Defaults:
-//  List of regex to filter out: [ /firstName/gi, /lastName/gi, /phone/gi ]
-//  maxRecursion: 20
+var jsonRedactor = require('json-redactor')({
+  max: #int, default is 20
+  watchKeys: #array of regex, default is [ /firstName/gi, /lastName/gi, /phone/gi]
+  error: #string, default is 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
+})
 ```
+`max` is the maximum number of recursions to go, deeper than max gets reset to ''.
+This is done so that recursive structures dont error out with a stack overflow.
+
+`watchKeys` is the list of things to watch for, only accepts regex
+
+`error` is the error message to replace strings that match the watchKeys with.
 
 ## `test` it by:
 
@@ -25,26 +31,35 @@ var jsonRedactor = require('json-redactor')([List of regex to filter out],maxRec
 ### as a go-between, example using `bole`
 
 ```js
+var bole = require('bole');
+var jsonRedactor = require('./logFilter.js')({
+    watchKeys : [ /firstName/gi , /lastName/gi , /phone/gi ]
+    error: 'Dont Log sensitive data',
+    max: 5
+  });
+
 var b = bole(name)
 var pre = {
-  error = function(){
-    b.error.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
+  error : function(){
+    b.error.apply(null,_.values(jsonRedactor.apply(null,arguments)))
   },
-  info = function(){
-    b.info.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
+  info :function(){
+    b.info.apply(null,_.values(jsonRedactor.apply(null,arguments)))
   },
-  warn = function(){
-    b.warn.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
+  warn : function(){
+    b.warn.apply(null,_.values(jsonRedactor.apply(null,arguments)))
   },
-  debug = function(){
-    b.debug.apply(null,_.values(jsonRedactor(watchKeys).clean.apply(null,arguments)))
+  debug : function(){
+    b.debug.apply(null,_.values(jsonRedactor.apply(null,arguments)))
   }
 }
+
+return pre
 ```
 
 ### standard usage
 
-`jsonRedactor.clean()`
+`jsonRedactor()`
 
 ## Some examples
 
