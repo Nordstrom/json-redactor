@@ -1,8 +1,6 @@
 'use strict'
 
 var find = require('lodash.find')
-var isString = require('lodash.isstring')
-var isArray = require('lodash.isarray')
 var map = require('lodash.map')
 var isObject = require('lodash.isobject')
 var forOwn = require('lodash.forown')
@@ -28,11 +26,11 @@ module.exports = function (opts) {
     function internalSwap (el, cnt) {
       cnt++
       if (cnt >= MAX) return ''
-      if (isString(el)) {
+      if (typeof el === 'string') {
         if (firstRegexMatch(el)) {
           el = ERR
         }
-      } else if (isArray(el)) {
+      } else if (Array.isArray(el)) {
         el = map(el, function (el) {
           return internalSwap(el, cnt)
         })
