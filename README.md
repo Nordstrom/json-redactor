@@ -10,9 +10,9 @@ This is a (soon to be) standard npm module, so you'll install it via
 
 ```js
 var jsonRedactor = require('json-redactor')({
-  max: #int, default is 20
-  watchKeys: #array of regex, default is [ /firstName/gi, /lastName/gi, /phone/gi]
-  error: #string, default is 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
+  max: // int, default is 20
+  watchKeys: // array of regex, default is [ /firstName/gi, /lastName/gi, /phone/gi]
+  error: // string, default is 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
 })
 ```
 `max` is the maximum number of recursions to go, deeper than max gets reset to ''.
