@@ -2,7 +2,7 @@
 
 Recursively clean a list of arguments before sending them out somewhere.
 
-This is a (soon to be) standard npm module, so you'll install it via
+This is a standard npm module, so you'll install it via
 
 `npm install --save json-redactor`
 
