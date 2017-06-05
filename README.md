@@ -10,9 +10,9 @@ This is a standard npm module, so you'll install it via
 
 ```js
 var jsonRedactor = require('json-redactor')({
-  max: // int, default is 20
-  watchKeys: // array of regex, default is [ /firstName/gi, /lastName/gi, /phone/gi]
-  error: // string, default is 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
+  max: // int, default is 10
+  watchKeys: // array of regex values, default is an empty array
+  error: // string, default is '-'
 })
 ```
 `max` is the maximum number of recursions to go, deeper than max gets reset to ''.
@@ -64,16 +64,16 @@ return pre
 ## Some examples
 
 ```js
-var jsonRedactor = require('jsonRedactor')({
+var jsonRedactor = require('json-redactor')({
     watchKeys:[/error/gi]
   })
 console.log(jsonRedactor('this is an error'))
-// logs {'0':'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'}
+// logs {'0':'-'}
 ```
 The outer object is because we copy and return the arguments object, this way we can parse through an arbitrary amount of args. The inner string got redacted because our regex matches `error` in the clean function, and the argument was a string
 
 ```js
-var jsonRedactor = require('jsonRedactor')({
+var jsonRedactor = require('json-redactor')({
     watchKeys:[/string/gi],
     error: 'redacted!'
   })

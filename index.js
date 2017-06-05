@@ -6,14 +6,13 @@ var isObject = require('lodash.isobject')
 var forOwn = require('lodash.forown')
 var cloneDeep = require('lodash.clonedeep')
 
-var omittingKeys = [ /firstName/gi, /lastName/gi, /phone/gi ]
-var error = 'REDACTED, DO NOT LOG PERSONALLY IDENTIFIABLE INFORMATION'
-var recursionLimit = 20
+var error = '-'
+var recursionLimit = 10
 
 module.exports = function (opts) {
   opts = opts || {}
   var MAX = opts.max || recursionLimit
-  var WATCH = opts.watchKeys || omittingKeys
+  var WATCH = opts.watchKeys || []
   var ERR = opts.error || error
 
   return function clean () {
