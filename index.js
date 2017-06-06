@@ -17,7 +17,7 @@ module.exports = function (opts) {
 
   return function clean () {
     function firstRegexMatch (el) {
-      return !!find(WATCH,function(k){
+      return !!find(WATCH, function (k) {
         return el.match(k)
       })
     }

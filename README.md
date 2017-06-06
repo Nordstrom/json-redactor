@@ -1,6 +1,9 @@
 # JSON Redactor
 
-[![Build Status](https://travis-ci.org/Nordstrom/json-redactor.svg?branch=master)](https://travis-ci.org/Nordstrom/json-redactor)
+[![Travis Build](https://travis-ci.org/Nordstrom/json-redactor.svg?branch=master)](https://travis-ci.org/Nordstrom/json-redactor)
+[![Coverage Status](https://coveralls.io/repos/github/Nordstrom/json-redactor/badge.svg?branch=master)](https://coveralls.io/github/Nordstrom/json-redactor?branch=master)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![json-redactor](https://img.shields.io/npm/v/json-redactor.svg)](https://www.npmjs.com/package/json-redactor)
 
 Recursively clean a list of arguments before sending them out somewhere.
 
