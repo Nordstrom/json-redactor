@@ -1,5 +1,7 @@
 # JSON Redactor
 
+[![Build Status](https://travis-ci.org/Nordstrom/json-redactor.svg?branch=master)](https://travis-ci.org/Nordstrom/json-redactor)
+
 Recursively clean a list of arguments before sending them out somewhere.
 
 This is a standard npm module, so you'll install it via
