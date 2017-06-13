@@ -4,7 +4,6 @@
   "description": "removes key value pairs from json objects, or redacts strings, if they contain regex keywords",
   "main": "index.js",
   "dependencies": {
-    "lodash.clonedeep": "^4.5.0",
     "lodash.find": "^4.6.0",
     "lodash.forown": "^4.4.0",
     "lodash.isobject": "^3.0.2",
