@@ -4,40 +4,42 @@ var find = require('lodash.find')
 var map = require('lodash.map')
 var isObject = require('lodash.isobject')
 var forOwn = require('lodash.forown')
-var cloneDeep = require('lodash.clonedeep')
 
 var error = '-'
-var recursionLimit = 10
 
 module.exports = function (opts) {
   opts = opts || {}
-  var MAX = opts.max || recursionLimit
   var WATCH = opts.watchKeys || []
   var ERR = opts.error || error
 
   return function clean () {
+    var gcache = []
+
     function firstRegexMatch (el) {
       return !!find(WATCH, function (k) {
         return el.match(k)
       })
     }
 
-    function internalSwap (el, cnt) {
-      cnt++
-      if (cnt >= MAX) return ''
+    function internalSwap (el) {
       if (typeof el === 'string') {
         if (firstRegexMatch(el)) {
           el = ERR
         }
       } else if (Array.isArray(el)) {
-        el = map(el, function (el) {
-          return internalSwap(el, cnt)
+        el = map(el, function (i) {
+          return internalSwap(i)
         })
       } else if (isObject(el)) {
+        var index = gcache.indexOf(el)
+        if (index !== -1) {
+          return '[circular]'
+        }
+        gcache.push(el)
         var cache = {}
         forOwn(el, function (v, k) {
           if (!firstRegexMatch(k)) {
-            cache[k] = internalSwap(v, cnt)
+            cache[k] = internalSwap(v)
           }
         })
         el = cache
@@ -45,10 +47,9 @@ module.exports = function (opts) {
       return el
     }
 
-    var args = cloneDeep(arguments)
     var cleaned = {}
-    forOwn(args, function (v, k) {
-      cleaned[k] = internalSwap(v, 0)
+    forOwn(arguments, function (v, k) {
+      cleaned[k] = internalSwap(v)
     })
     return cleaned
   }

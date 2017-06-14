@@ -7,8 +7,7 @@ var ERROR_MESSAGE = 'TEST'
 
 var jsonRedactor = require('./index.js')({
   error: ERROR_MESSAGE,
-  watchKeys: WATCH_KEYS,
-  max: 5
+  watchKeys: WATCH_KEYS
 })
 
 var triggers = ['firstName', 'lastName', 'phone', 'phoneNumber', 'standardfirstname']
@@ -95,15 +94,18 @@ describe('json redactor', function () {
     })
   })
 
-  describe('removes elements that are too deep', function () {
-    // max = 5
-    it('in a 5D array, it removes the strings', function () {
-      var t = [[[triggers]]]
-      assertion(t, [[[['', '', '', '', '']]]])
+  describe('covers elements that are circular', function () {
+    it('replaces circular references with `[circular]`', function () {
+      var t = {a: 1, b: 2}
+      t.c = t
+      var test = {a: 1, b: 2, c: '[circular]'}
+      assertion(t, test)
     })
-    it('in a 6D array, it removes the array', function () {
-      var t = [[[[triggers]]]]
-      assertion(t, [[[['']]]])
+    it('it still works on deep references', function () {
+      var t = {a: 1, b: 2}
+      t.c = {d: t}
+      var test = {a: 1, b: 2, c: {d: '[circular]'}}
+      assertion(t, test)
     })
   })
 

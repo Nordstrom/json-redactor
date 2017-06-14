@@ -15,14 +15,10 @@ This is a standard npm module, so you'll install it via
 
 ```js
 var jsonRedactor = require('json-redactor')({
-  max: // int, default is 10
   watchKeys: // array of regex values, default is an empty array
   error: // string, default is '-'
 })
 ```
-`max` is the maximum number of recursions to go, deeper than max gets reset to ''.
-This is done so that recursive structures dont error out with a stack overflow.
-
 `watchKeys` is the list of things to watch for, only accepts regex
 
 `error` is the error message to replace strings that match the watchKeys with.
@@ -38,9 +34,8 @@ This is done so that recursive structures dont error out with a stack overflow.
 ```js
 var bole = require('bole');
 var jsonRedactor = require('./logFilter.js')({
-    watchKeys : [ /firstName/gi , /lastName/gi , /phone/gi ],
-    error: 'Dont Log sensitive data',
-    max: 5
+    watchKeys : [ /firstName/gi , /lastName/gi , /phone/gi , /^_.*/ ],
+    error: 'Dont Log sensitive data'
   });
 
 var b = bole(name)
