@@ -21,14 +21,14 @@ module.exports = function (opts) {
       })
     }
 
-    function internalSwap (el, cnt) {
+    function internalSwap (el) {
       if (typeof el === 'string') {
         if (firstRegexMatch(el)) {
           el = ERR
         }
       } else if (Array.isArray(el)) {
-        el = map(el, function (el) {
-          return internalSwap(el, cnt)
+        el = map(el, function (i) {
+          return internalSwap(i)
         })
       } else if (isObject(el)) {
         var index = gcache.indexOf(el)
@@ -39,7 +39,7 @@ module.exports = function (opts) {
         var cache = {}
         forOwn(el, function (v, k) {
           if (!firstRegexMatch(k)) {
-            cache[k] = internalSwap(v, cnt)
+            cache[k] = internalSwap(v)
           }
         })
         el = cache
@@ -49,7 +49,7 @@ module.exports = function (opts) {
 
     var cleaned = {}
     forOwn(arguments, function (v, k) {
-      cleaned[k] = internalSwap(v, 0)
+      cleaned[k] = internalSwap(v)
     })
     return cleaned
   }
