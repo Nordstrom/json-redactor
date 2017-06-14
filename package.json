@@ -1,6 +1,6 @@
 {
   "name": "json-redactor",
-  "version": "0.5.3",
+  "version": "0.6.0",
   "description": "removes key value pairs from json objects, or redacts strings, if they contain regex keywords",
   "main": "index.js",
   "dependencies": {
